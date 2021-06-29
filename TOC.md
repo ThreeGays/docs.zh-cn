@@ -9,4 +9,4 @@
   + [数据流和控制流](/kuai-su-kai-shi/shu-ju-liu-he-kong-zhi-liu.md)
   + [数据导入和查询](/kuai-su-kai-shi/shu-ju-dao-ru-he-cha-xun.md)
   + [测试常见问题](/kuai-su-kai-shi/ce-shi-yao-dian.md)
-+ [性能测试](/9-xing-neng-ce-shi.md)
++ [性能测试](/xing-neng-ce-shi.md)
