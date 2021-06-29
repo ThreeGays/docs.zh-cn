@@ -1,13 +1,13 @@
-# 2.2 DorisDB的系统架构
+# DorisDB的系统架构
 
 \[TOC\]
 
-## 2.2.1 系统架构图
+## 系统架构图
 
 ![](../assets/2.1-1.png)
 
 
-## 2.2.2 组件介绍
+## 组件介绍
 
 DorisDB集群由FE和BE构成, 可以使用MySQL客户端访问DorisDB集群。
 
@@ -34,5 +34,5 @@ FE接收MySQL客户端的连接, 解析并执行SQL语句。
 **其他组件**
 
 * 管理平台, 在后面会专门的章节介绍。
-* Hdfs Broker:  用于从Hdfs中导入数据到DorisDB集群，见[数据导入](../4.-shu-ju-dao-ru/)章节。
+* Hdfs Broker:  用于从Hdfs中导入数据到DorisDB集群，见[数据导入](../shu-ju-dao-ru/)章节。
 

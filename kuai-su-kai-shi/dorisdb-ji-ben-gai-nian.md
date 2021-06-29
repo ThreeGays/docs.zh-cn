@@ -1,4 +1,4 @@
-# 2.1 DorisDB基本概念
+# DorisDB基本概念
 
 * FE：FrontEnd DorisDB的前端节点，负责管理元数据，管理客户端连接，进行查询规划，查询调度等工作。
 * BE：BackEnd DorisDB的后端节点，负责数据存储，计算执行，以及compaction，副本管理等工作。

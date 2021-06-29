@@ -1,8 +1,8 @@
-# 2.3 DorisDB的手动部署
+# DorisDB的手动部署
 
 \[TOC\] 手动部署可以让用户快速体验DorisDB, 积累DorisDB的系统运维经验. 生产环境部署, 请使用管理平台和自动部署.
 
-## 2.3.1 获取二进制产品包
+## 获取二进制产品包
 
 请您联系DorisDB的技术支持或者销售人员获取最新稳定版的DorisDB二进制产品包.
 
@@ -52,7 +52,7 @@ DorisDB-XX-1.0.0
 
 └── udf
 
-## 2.3.2 环境准备
+## 环境准备
 
 准备三台物理机, 需要以下环境支持：
 
@@ -63,13 +63,13 @@ CPU需要支持AVX2指令集， cat /proc/cpuinfo \|grep avx2有结果输出表�
 
 将DorisDB的二进制产品包分发到目标主机的部署路径并解压，可以考虑使用新建的DorisDB用户来管理。
 
-## 2.3.3 部署FE
+## 部署FE
 
-### 2.3.3.1 FE的基本配置
+### FE的基本配置
 
 FE的配置文件为DorisDB-XX-1.0.0/fe/conf/fe.conf, 默认配置已经足以启动集群, 有经验的用户可以查看手册的系统配置章节, 为生产环境定制配置，为了让用户更好的理解集群的工作原理, 此处只列出基础配置.
 
-### 2.3.3.2 FE单实例部署
+### FE单实例部署
 
 cd DorisDB-XX-1.0.0/fe
 
@@ -107,7 +107,7 @@ bin/start\_fe.sh --daemon
 * 使用jps命令查看java进程确认"DorisDbFe"存在.
 * 使用浏览器访问8030端口, 打开DorisDB的WebUI, 用户名为root, 密码为空.
 
-### 2.3.3.3 使用MySQL客户端访问FE
+### 使用MySQL客户端访问FE
 
 第一步: 安装mysql客户端\(如果已经安装，可忽略此步\)：
 
@@ -165,7 +165,7 @@ Role为FOLLOWER说明这是一个能参与选主的FE；IsMaster为true，说明
 
 如果MySQL客户端连接不成功，请查看log/fe.warn.log日志文件，确认问题。由于是初次启动，如果在操作过程中遇到任何意外问题，都可以删除并重新创建FE的元数据目录，再从头开始操作。
 
-### 2.3.3.4 FE的高可用集群部署
+### FE的高可用集群部署
 
 FE的高可用集群采用主从复制架构, 可避免FE单点故障. FE采用了类raft的bdbje协议完成选主, 日志复制和故障切换. 在FE集群中, 多实例分为两种角色: follower和observer; 前者为复制协议的可投票成员, 参与选主和提交日志, 一般数量为奇数\(2n+1\), 使用多数派\(n+1\)确认, 可容忍少数派\(n\)故障; 而后者属于非投票成员, 用于异步订阅复制日志, observer的状态落后于follower, 类似其他复制协议中的leaner角色.
 
@@ -198,7 +198,7 @@ alter system drop follower "fe_host:edit_log_port";
 alter system drop observer "fe_host:edit_log_port";
 ```
 
-具体参考[扩容缩容](../8.-guan-li-shou-ce/8.4-kuo-rong-suo-rong.md)。   
+具体参考[扩容缩容](../guan-li-shou-ce/8.4-kuo-rong-suo-rong.md)。   
 
 
 第三步: FE节点之间需要两两互联才能完成复制协议选主, 投票，日志提交和复制等功能。 FE节点首次启动时，需要指定现有集群中的一个节点作为helper节点, 从该节点获得集群的所有FE节点的配置信息，才能建立通信连接，因此首次启动需要指定--helper参数：
@@ -281,13 +281,13 @@ Alive: true
 
 172.26.108.172\_9010\_1584965098874 为主FE节点。
 
-## 2.3.4 部署BE
+## 部署BE
 
-### 2.3.4.1 BE的基本配置
+### BE的基本配置
 
 BE的配置文件为DorisDB-XX-1.0.0/be/conf/be.conf, 默认配置已经足以启动集群, 不建议初尝用户修改配置, 有经验的用户可以查看手册的系统配置章节, 为生产环境定制配置. 为了让用户更好的理解集群的工作原理, 此处只列出基础配置.
 
-### 2.3.4.2 BE部署
+### BE部署
 
 用户可使用下面命令添加BE到DorisDB集群, 一般至少部署3个BE实例, 每个实例的添加步骤相同.
 
@@ -308,7 +308,7 @@ mysql&gt; ALTER SYSTEM ADD BACKEND "host:port";
 * `alter system decommission backend "be_host:be_heartbeat_service_port";`
 * `alter system dropp backend "be_host:be_heartbeat_service_port";`
 
-具体参考[扩容缩容](../8.-guan-li-shou-ce/8.4-kuo-rong-suo-rong.md)。
+具体参考[扩容缩容](../guan-li-shou-ce/8.4-kuo-rong-suo-rong.md)。
 
 第三步: 启动BE：
 
@@ -376,7 +376,7 @@ mysql&gt; ALTER SYSTEM DROP BACKEND "172.16.139.24:9050";
 
 由于是初次启动，如果在操作过程中遇到任何意外问题，都可以删除并重新创建storage目录，再从头开始操作。
 
-## 2.3.5 部署Broker
+## 部署Broker
 
 配置文件为apache\_hdfs\_broker/conf/apache\_hdfs\_broker.conf
 
@@ -413,7 +413,7 @@ LastUpdateTime: 2020-04-01 19:08:45
 
 Alive为true代表状态正常。
 
-## 2.3.6 参数设置
+## 参数设置
 
 * **Swappiness**
 
@@ -441,7 +441,7 @@ cumulative_compaction_check_interval_seconds = 2
 set  global parallel_fragment_exec_instance_num =  8;
 ```
 
-## 2.3.7 使用MySQL客户端访问DorisDB
+## 使用MySQL客户端访问DorisDB
 
 **1 Root用户登录**
 
@@ -523,7 +523,7 @@ DorisDB支持支持单分区和复合分区两种建表方式。
 3. siteid：类型是INT（4字节）, 默认值为10
 4. cidy\_code：类型是SMALLINT（2字节）
 5. username：类型是VARCHAR, 最大长度为32, 默认值为空字符串
-6. pv：类型是BIGINT（8字节）, 默认值是0; 这是一个指标列, DorisDB内部会对指标列做聚合操作, 这个列的聚合方法是求和（SUM）。这里采用了聚合模型，除此之外DorisDB还支持明细模型和更新模型，具体参考[数据模型介绍](../3.-biao-she-ji/3.2-shu-ju-mo-xing-jie-shao.md)。
+6. pv：类型是BIGINT（8字节）, 默认值是0; 这是一个指标列, DorisDB内部会对指标列做聚合操作, 这个列的聚合方法是求和（SUM）。这里采用了聚合模型，除此之外DorisDB还支持明细模型和更新模型，具体参考[数据模型介绍](../biao-she-ji/3.2-shu-ju-mo-xing-jie-shao.md)。
 
 建表语句如下:
 
