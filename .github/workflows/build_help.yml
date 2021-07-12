@@ -26,5 +26,5 @@ jobs:
         repoSuffix=${repoNames[1]}
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@$repoSuffix
         git add help-resource.zip
-        git commit -am "Auto building help-resource.zip"
+        git commit -am "Auto built"
         git push origin ${{ steps.branch-name.outputs.base_ref_branch }}
