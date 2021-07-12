@@ -1,23 +1,23 @@
-# 9. 性能测试
+# 性能测试
 
 \[TOC\]
 
-## 9.1 测试方法
+## 测试方法
 
 为了方便用户快速的了解DorisDB的性能指标，这里我们提供了一个标准的Star schema benchmark的测试方法和工具仅供参考。
 
 Star schema benchmark（以下简称SSB）是学术界和工业界广泛使用的一个星型模型测试集（来源[论文](https://www.cs.umb.edu/~xuedchen/research/publications/StarSchemaB.PDF)），通过这个测试集合也可以容易的和其他OLAP产品进行性能对比。
 
-## 9.2 测试准备
+## 测试准备
 
-### 9.2.1 环境准备
+### 环境准备
 
 * 硬件环境准备，DorisDB对机器没有严格要求，建议大于8C 32G，磁盘是SSD/SATA均可，网络建议万兆网卡。
 * 集群部署参考 [集群部署](8.-guan-li-shou-ce/8.1-ji-qun-bu-shu.md)
 * 系统参数参考 [配置参数](8.-guan-li-shou-ce/8.3-pei-zhi-can-shu.md)
 * 下载ssb-poc工具集
 
-### 9.2.2 SSB SQL
+### SSB SQL
 
 ```text
 --Q1.1
@@ -140,11 +140,11 @@ group by d_year, s_city, p_brand
 order by d_year, s_city, p_brand;
 ```
 
-## 9.3 测试流程
+## 测试流程
 
-### 9.3.1 数据创建
+### 数据创建
 
-#### 9.3.1.1 下载ssb-poc工具包并编译
+#### 下载ssb-poc工具包并编译
 
 ```text
 make && make install
@@ -152,13 +152,13 @@ make && make install
 
 所有相关工具安装到output目录
 
-#### 9.3.1.2 生成数据
+#### 生成数据
 
 ```text
 bin/gen-ssb.sh 100 data_dir
 ```
 
-#### 9.3.1.3  建表
+#### 建表
 
 建表中有三个注意事项，这几个选择会比较大的影响到测试结果：
 
@@ -379,7 +379,7 @@ bin/create_db_table.sh ddl_100
 
 完成后我们创建了6张表，lineorder, supplier, dates, customer, part, lineorder\_flat
 
-### 9.3.2 数据导入
+### 数据导入
 
 这里我们通过stream load
 
@@ -389,7 +389,7 @@ bin/stream_load.sh data_dir
 
 data\_dir 是9.3.1.2生成的数据目录
 
-### 9.3.3 查询
+### 查询
 
 测试ssb多表查询 \(SQL 参见 share/ssb\_test/sql/ssb/\)
 

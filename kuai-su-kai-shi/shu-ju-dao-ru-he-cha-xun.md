@@ -1,8 +1,8 @@
-# 2.5 数据导入和查询
+# 数据导入和查询
 
 \[TOC\]
 
-## 2.5.1 本地文件导入
+## 本地文件导入
 
 为适配不同的数据导入需求，DorisDB 系统提供了5种不同的导入方式，以支持不同的数据源（如HDFS、Kafka、本地文件等），或者按不同的方式（异步或同步）导入数据。
 
@@ -34,10 +34,10 @@ Routine Load（例行导入）提供了一种自动从指定数据源进行数�
 
 DorisDB数据导入整体生态图如下。
 
-![](../.gitbook/assets/screenshot_1615530614737.png)
-ssets/images/g
+![](../assets/screenshot_1615530614737.png)
 
-具体导入方式详情请参考[数据导入](../4.-shu-ju-dao-ru/)。这里为了尽快导入测试数据，我们只介绍利用HTTP协议的Stream load方式导入。
+
+具体导入方式详情请参考[数据导入](../shu-ju-dao-ru/)。这里为了尽快导入测试数据，我们只介绍利用HTTP协议的Stream load方式导入。
 
 * **示例1**：以 "table1\_20170707"为Label，使用本地文件table1\_data导入table1表。
 * 在本地创建数据文件able1\_data，以\t作为数据之间的分隔符，具体内容如下：
@@ -73,7 +73,7 @@ curl --location-trusted -u test:123456 -T table1_data -H "label: table1_20170707
 
 `curl --location-trusted -u test:123456 -T table2_data -H "label:table2_20170707" http://127.0.0.1:8030/api/example_db/table2/_stream_load`
 
-## 2.5.2 查询
+## 查询
 
 1. 简单查询
 
@@ -161,9 +161,9 @@ curl --location-trusted -u test:123456 -T table1_data -H "label: table1_20170707
 
 `1 row in set (0.13 sec)`
 
-如果在DorisManager的编辑器中执行查询语句，可以查看Profile，Profile是BE执行后的结果，包含了每一个步骤的耗时和数据处理量等数据，可以通过DorisManager的图形界面看到可视化的Profile执行树。在DorisManager中执行查询，点击查询历史，就可看在“执行详情”tab中看到Profile的详细文本信息，在“执行时间”tab中能看到图形化的展示。详情见[8.8 查询分析](../8.-guan-li-shou-ce/8.8-cha-xun-fen-xi.md)。
+如果在DorisManager的编辑器中执行查询语句，可以查看Profile，Profile是BE执行后的结果，包含了每一个步骤的耗时和数据处理量等数据，可以通过DorisManager的图形界面看到可视化的Profile执行树。在DorisManager中执行查询，点击查询历史，就可看在“执行详情”tab中看到Profile的详细文本信息，在“执行时间”tab中能看到图形化的展示。详情见[8.8 查询分析](../guan-li-shou-ce/8.8-cha-xun-fen-xi.md)。
 
-## 2.5.3 Schema修改
+## Schema修改
 
 1. 修改Schema
 
