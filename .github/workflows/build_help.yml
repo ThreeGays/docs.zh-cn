@@ -18,7 +18,7 @@ jobs:
       run: |
         git config --global user.name 'DorisDB'
         git config --global user.email 'open@dorisdb.com'
-        repo=${git remote get-url origin}
+        repo=$(git remote get-url origin)
         repoNames=(${repo//:/ })
         repoSuffix=${repoNames[0]}
         git remote set-url origin https://${{ secrets.GITHUB_USER }}:${{ secrets.GITHUB_TOKEN }}@github.com/$repoSuffix
