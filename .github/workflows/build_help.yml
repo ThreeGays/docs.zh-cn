@@ -11,6 +11,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ steps.branch-name.outputs.base_ref_branch }}
+    - name: Remove
+      run: |
+        rm -f help-resource.zip
     - uses: montudor/action-zip@v1
       with:
         args: zip -qq -r help-resource.zip sql-reference
@@ -19,9 +22,9 @@ jobs:
         git config --global user.name 'DorisDB'
         git config --global user.email 'open@dorisdb.com'
         repo=$(git remote get-url origin)
-        repoNames=(${repo//:/ })
-        repoSuffix=${repoNames[0]}
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$repoSuffix
+        repoNames=(${repo//:\/\// })
+        repoSuffix=${repoNames[1]}
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@$repoSuffix
         git add help-resource.zip
         git commit -am "Auto building help-resource.zip"
         git push origin ${{ steps.branch-name.outputs.base_ref_branch }}
