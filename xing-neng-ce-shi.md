@@ -18,7 +18,7 @@ Star schema benchmark（以下简称SSB）是学术界和工业界广泛使用�
 * 下载ssb-poc工具集
 
 ### SSB SQL
-
+1
 ```text
 --Q1.1
 select sum(lo_revenue) as revenue
